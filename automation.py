@@ -1,6 +1,5 @@
 import os
 import sys
-
 import requests
 
 GRAPH = "https://graph.facebook.com/v21.0"
@@ -31,8 +30,8 @@ def send_text_message(body: str) -> dict:
         ("TO_NUMBER", to),
     ] if not v]
     if missing:
-        print("Faltam variáveis:", ", ".join(missing))
-        print("Use .env (veja .env.example) ou exporte no sistema.")
+        print("Missing environment variables:", ", ".join(missing))
+        print("Use a .env file (see .env.example) or export them in your system.")
         sys.exit(1)
 
     url = f"{GRAPH}/{phone_id}/messages"
@@ -62,7 +61,7 @@ def send_text_message(body: str) -> dict:
 
 if __name__ == "__main__":
     load_env_file()
-    msg = " ".join(sys.argv[1:]).strip() or "Integração com a WhatsApp Cloud API funcionando com sucesso via Python."
+    msg = " ".join(sys.argv[1:]).strip() or "WhatsApp Cloud API integration working successfully via Python."
     out = send_text_message(msg)
 
     print("Message sent successfully")
